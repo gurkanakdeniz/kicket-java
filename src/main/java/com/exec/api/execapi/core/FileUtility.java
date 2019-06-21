@@ -13,16 +13,13 @@ public class FileUtility {
     private static final String ROOT_FOLDER = "codes";
     private static final String ROOT_FILE = "External.java";
     private static final String ROOT_COMPILE_FILE = "External.class";
-    private static final String ROOT_CODE = "IMPORTpublic class External{METHOD}";
 
     public static void createFolder(String name) throws Exception {
         Path path = Paths.get(ROOT_FOLDER).resolve(name);
         Files.createDirectories(path);
     }
 
-    public static void createCode(String method, String imports, String folderName) throws Exception {
-        String code = ROOT_CODE.replace("IMPORT", imports == null || imports.length() <= 0 ? "" : imports);
-        code = code.replace("METHOD", method);
+    public static void createCode(String code, String folderName) throws Exception {
         generateCode(folderName, code);
     }
     

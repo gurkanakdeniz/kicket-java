@@ -1,24 +1,24 @@
 package com.exec.api.execapi.request;
 
-public class CreateRequest {
+public class CreateRequest extends BaseRequest {
 
-    private String method;
-    private String imports;
+    private String uuid;
+    private String code;
 
-    public String getMethod() {
-        return method;
+    public String getCode() {
+        return code;
     }
 
-    public void setMethod(String method) {
-        this.method = method;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getImports() {
-        return imports;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setImports(String imports) {
-        this.imports = imports;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
 }

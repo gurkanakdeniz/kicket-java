@@ -1,15 +1,24 @@
 package com.exec.api.execapi.response;
 
-public class CreateResponse {
+public class CreateResponse extends BaseResponse {
 
-    private String uuid;
+    private String platform;
+    private String endpoint;
 
-    public String getUuid() {
-        return uuid;
+    public String getPlatform() {
+        return platform;
     }
 
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
+    public void setPlatform(String platform) {
+        this.platform = platform;
+    }
+
+    public String getEndpoint() {
+        return endpoint;
+    }
+
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
     }
 
 }

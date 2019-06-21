@@ -12,10 +12,13 @@ import com.exec.api.execapi.core.GuidGenerator;
 import com.exec.api.execapi.request.CreateRequest;
 import com.exec.api.execapi.request.RunRequest;
 import com.exec.api.execapi.response.CreateResponse;
+import com.exec.api.execapi.response.ExampleResponse;
 import com.exec.api.execapi.response.RunResponse;
 
 @RestController
 public class CommonController {
+    
+    private static final String platform = "java";
 
     @GetMapping(value = { "/" })
     public Object index() {
@@ -25,20 +28,24 @@ public class CommonController {
     @PostMapping(value = { "/create" })
     public CreateResponse create(@RequestBody CreateRequest request) {
         CreateResponse response = new CreateResponse();
+        response.setPlatform(platform);;
         
-        String uuid = "";
+        String uuid = request.getUuid();
         try {
-            uuid = GuidGenerator.generate();
+            if (uuid == null || uuid.trim().length() <= 0) {
+                uuid = GuidGenerator.generate();    
+            }
+            
             FileUtility.createFolder(uuid);
-            FileUtility.createCode(request.getMethod(), request.getImports(), uuid);
+            FileUtility.createCode(request.getCode(), uuid);
             FileUtility.createClass(uuid);
         } catch (Exception e) {
             e.printStackTrace();
-            response.setUuid("FAIL: " + e.getMessage());
+            response.setEndpoint("FAIL: " + e.getMessage());
             return response;
         }
 
-        response.setUuid(uuid);
+        response.setEndpoint(uuid);
         return response;
     }
 
@@ -47,7 +54,7 @@ public class CommonController {
         RunResponse response = new RunResponse();
         Object result = null;
         try {
-            result = CodeRunner.run(guid, request.getArgs());
+            result = CodeRunner.run(guid, request.getArgs(), request.getMethod());
         } catch (Exception e) {
             e.printStackTrace();
             response.setResponse("FAIL: " + e.getMessage());
@@ -56,6 +63,27 @@ public class CommonController {
         
         response.setResponse(result);
         return response;
+    }
+    
+    @GetMapping(value = { "/run/{guid}" })
+    public RunResponse run(@PathVariable String guid) {
+        RunResponse response = new RunResponse();
+        Object result = null;
+        try {
+            result = CodeRunner.run(guid, null, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response.setResponse("FAIL: " + e.getMessage());
+            return response;
+        }
+        
+        response.setResponse(result);
+        return response;
+    }
+    
+    @GetMapping(value = { "/example" })
+    public ExampleResponse examples() {
+        return new ExampleResponse();
     }
 
 }

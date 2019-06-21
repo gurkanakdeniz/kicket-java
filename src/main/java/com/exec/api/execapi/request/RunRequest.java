@@ -1,8 +1,9 @@
 package com.exec.api.execapi.request;
 
-public class RunRequest {
+public class RunRequest extends BaseRequest {
 
     private String[] args;
+    private String method;
 
     public String[] getArgs() {
         return args;
@@ -11,4 +12,13 @@ public class RunRequest {
     public void setArgs(String[] args) {
         this.args = args;
     }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
 }

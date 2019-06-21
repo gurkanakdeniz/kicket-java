@@ -33,7 +33,7 @@ public class CodeRunner {
 //        System.out.println("\nExited with error code : " + exitCode);
     }
 
-    public static Object run(String folderName, String[] args) throws Exception {
+    public static Object run(String folderName, String[] args, String method) throws Exception {
         File file = new File(FileUtility.getCompileCodeFile(folderName));
         URL url = file.toURI().toURL();
         URL[] urls = new URL[] { url };
@@ -43,8 +43,12 @@ public class CodeRunner {
         c = Class.forName("External", false, cl);
 
         Object[] param = { getArgs(args) };
+        String runMethod = method;
+        if (runMethod == null || runMethod.trim().length() <= 0) {
+            runMethod = "ex";
+        }
 
-        Method m = c.getMethod("ex", param.getClass());
+        Method m = c.getMethod(runMethod, param.getClass());
         Object obj = m.invoke(null, param);
 
         return obj;
