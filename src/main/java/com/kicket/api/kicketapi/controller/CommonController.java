@@ -1,4 +1,4 @@
-package com.exec.api.execapi.controller;
+package com.kicket.api.kicketapi.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.exec.api.execapi.core.CodeRunner;
-import com.exec.api.execapi.core.FileUtility;
-import com.exec.api.execapi.core.GuidGenerator;
-import com.exec.api.execapi.request.CreateRequest;
-import com.exec.api.execapi.request.RunRequest;
-import com.exec.api.execapi.response.CreateResponse;
-import com.exec.api.execapi.response.ExampleResponse;
-import com.exec.api.execapi.response.RunResponse;
+import com.kicket.api.kicketapi.core.CodeRunner;
+import com.kicket.api.kicketapi.core.FileUtility;
+import com.kicket.api.kicketapi.core.GuidGenerator;
+import com.kicket.api.kicketapi.request.CreateRequest;
+import com.kicket.api.kicketapi.request.RunRequest;
+import com.kicket.api.kicketapi.response.CreateResponse;
+import com.kicket.api.kicketapi.response.ExampleResponse;
+import com.kicket.api.kicketapi.response.RunResponse;
 
 @RestController
 public class CommonController {
@@ -54,7 +54,7 @@ public class CommonController {
         RunResponse response = new RunResponse();
         Object result = null;
         try {
-            result = CodeRunner.run(guid, request.getArgs(), request.getMethod());
+            result = new CodeRunner().run(guid, request.getArgs(), request.getMethod());
         } catch (Exception e) {
             e.printStackTrace();
             response.setResponse("FAIL: " + e.getMessage());
@@ -70,7 +70,7 @@ public class CommonController {
         RunResponse response = new RunResponse();
         Object result = null;
         try {
-            result = CodeRunner.run(guid, null, null);
+            result = new CodeRunner().run(guid, null, null);
         } catch (Exception e) {
             e.printStackTrace();
             response.setResponse("FAIL: " + e.getMessage());

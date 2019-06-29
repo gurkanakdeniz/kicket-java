@@ -1,4 +1,4 @@
-package com.exec.api.execapi.core;
+package com.kicket.api.kicketapi.core;
 
 import java.io.IOException;
 import java.util.UUID;

@@ -1,4 +1,4 @@
-package com.exec.api.execapi.response;
+package com.kicket.api.kicketapi.response;
 
 public class ExampleResponse extends BaseResponse {
 

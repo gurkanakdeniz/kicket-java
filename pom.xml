@@ -8,10 +8,10 @@
 		<version>2.1.5.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.exec.api</groupId>
-	<artifactId>exec-api</artifactId>
+	<groupId>com.kicket.api</groupId>
+	<artifactId>kicket-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>exec-api</name>
+	<name>kicket-api</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>

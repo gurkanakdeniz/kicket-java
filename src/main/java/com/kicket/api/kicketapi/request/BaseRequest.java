@@ -1,8 +1,8 @@
-package com.exec.api.execapi.response;
+package com.kicket.api.kicketapi.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class BaseResponse {
+public class BaseRequest {
 
 }

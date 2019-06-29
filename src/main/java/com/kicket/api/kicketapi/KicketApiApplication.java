@@ -1,17 +1,17 @@
-package com.exec.api.execapi;
+package com.kicket.api.kicketapi;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.exec.api.execapi.core.FileUtility;
+import com.kicket.api.kicketapi.core.FileUtility;
 
 @SpringBootApplication
-public class ExecApiApplication {
+public class KicketApiApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ExecApiApplication.class, args);
+        SpringApplication.run(KicketApiApplication.class, args);
     }
     
     @PostConstruct

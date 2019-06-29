@@ -1,4 +1,4 @@
-package com.exec.api.execapi.core;
+package com.kicket.api.kicketapi.core;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -33,7 +33,7 @@ public class CodeRunner {
 //        System.out.println("\nExited with error code : " + exitCode);
     }
 
-    public static Object run(String folderName, String[] args, String method) throws Exception {
+    public Object run(String folderName, String[] args, String method) throws Exception {
         File file = new File(FileUtility.getCompileCodeFile(folderName));
         URL url = file.toURI().toURL();
         URL[] urls = new URL[] { url };
@@ -47,11 +47,26 @@ public class CodeRunner {
         if (runMethod == null || runMethod.trim().length() <= 0) {
             runMethod = "ex";
         }
-
+        
         Method m = c.getMethod(runMethod, param.getClass());
-        Object obj = m.invoke(null, param);
+        TimeoutCodeRunner timeoutCodeRunner = new TimeoutCodeRunner(m, 8000);
+        timeoutCodeRunner.run(null, param); // m.invoke(null, param);
+        
+        Exception exception = timeoutCodeRunner.getException();
+        if (exception != null) {
+            throw exception;
+        }
+        
+        Object obj = timeoutCodeRunner.getResult();
 
         return obj;
+    }
+
+    public void test() {
+        int i = 0;
+        while (true) {
+            System.out.println(i++);
+        }
     }
 
     private static Object[] getArgs(String[] args) {
