@@ -36,28 +36,18 @@ public class TimeoutCodeRunner {
             }
         });
         runThread.setDaemon(true);
-
-        Thread timeThread = new Thread(threadGroup, new Runnable() {
-
-            @SuppressWarnings("deprecation")
-            public void run() {
-
-                try {
-                    Thread.sleep(timeout);
-                    // INFO:: this method deprecated, i know but not work other ways
-                    runThread.stop();
-                    runThread.interrupt();
-                    threadGroup.interrupt();
-                    threadGroup.destroy();
-                } catch (Exception e) {
-                    return;
-                }
-            }
-        });
-
         runThread.start();
-        timeThread.start();
-        timeThread.join();
+        runThread.join(timeout);
+        
+        try {
+            runThread.stop();
+            runThread.interrupt();
+            threadGroup.interrupt();
+            threadGroup.destroy();
+        } catch (Exception e) {
+            exception = e;
+            return;
+        }
     }
 
     public Object getResult() {
