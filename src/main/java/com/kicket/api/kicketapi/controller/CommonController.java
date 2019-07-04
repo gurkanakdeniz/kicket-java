@@ -1,13 +1,16 @@
 package com.kicket.api.kicketapi.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kicket.api.kicketapi.configuration.GitProperties;
 import com.kicket.api.kicketapi.core.CodeRunner;
 import com.kicket.api.kicketapi.core.FileUtility;
+import com.kicket.api.kicketapi.core.GitUtility;
 import com.kicket.api.kicketapi.core.GuidGenerator;
 import com.kicket.api.kicketapi.request.CreateRequest;
 import com.kicket.api.kicketapi.request.RunRequest;
@@ -19,6 +22,9 @@ import com.kicket.api.kicketapi.response.RunResponse;
 public class CommonController {
     
     private static final String platform = "java";
+    
+    @Autowired
+    GitProperties gitProperties;
 
     @GetMapping(value = { "/" })
     public Object index() {
@@ -28,7 +34,7 @@ public class CommonController {
     @PostMapping(value = { "/create" })
     public CreateResponse create(@RequestBody CreateRequest request) {
         CreateResponse response = new CreateResponse();
-        response.setPlatform(platform);;
+        response.setPlatform(platform);
         
         String uuid = request.getUuid();
         try {
@@ -39,7 +45,18 @@ public class CommonController {
             FileUtility.createFolder(uuid);
             FileUtility.createCode(request.getCode(), uuid);
             FileUtility.createClass(uuid);
+            
+            if (gitProperties.active()) {
+                GitUtility git = new GitUtility(gitProperties, false);
+                
+                git.remotePush(uuid, uuid);
+            }
         } catch (Exception e) {
+            try {
+                FileUtility.deleteFolder(uuid);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
             e.printStackTrace();
             response.setEndpoint("FAIL: " + e.getMessage());
             return response;

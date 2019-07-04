@@ -7,16 +7,22 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Comparator;
 
 public class FileUtility {
 
-    private static final String ROOT_FOLDER = "codes";
+    public static final String ROOT_FOLDER = "codes";
     private static final String ROOT_FILE = "External.java";
     private static final String ROOT_COMPILE_FILE = "External.class";
 
     public static void createFolder(String name) throws Exception {
         Path path = Paths.get(ROOT_FOLDER).resolve(name);
         Files.createDirectories(path);
+    }
+    
+    public static void deleteFolder(String name) throws Exception {
+        Path path = Paths.get(ROOT_FOLDER).resolve(name);
+        Files.walk(path).sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
     }
 
     public static void createCode(String code, String folderName) throws Exception {

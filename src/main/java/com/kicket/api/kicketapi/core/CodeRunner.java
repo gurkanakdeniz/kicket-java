@@ -12,25 +12,15 @@ public class CodeRunner {
             ProcessBuilder pb = new ProcessBuilder("javac", file);
             Process process = pb.start();
 
-            while (process.isAlive()) {
-                // stay
+            int exitCode = process.waitFor();
+            
+            if (exitCode > 0) {
+                throw new Exception("Compile Error");
             }
         } catch (Exception e) {
             e.printStackTrace();
             throw e;
         }
-
-//		// blocked :(
-//        BufferedReader reader =
-//                new BufferedReader(new InputStreamReader(process.getInputStream()));
-//
-//        String line;
-//        while ((line = reader.readLine()) != null) {
-//            System.out.println(line);
-//        }
-//
-//        int exitCode = process.waitFor();
-//        System.out.println("\nExited with error code : " + exitCode);
     }
 
     public Object run(String folderName, String[] args, String method) throws Exception {

@@ -12,7 +12,7 @@
 	<artifactId>kicket-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>kicket-api</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Kicket Project</description>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -28,6 +28,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.eclipse.jgit</groupId>
+		    <artifactId>org.eclipse.jgit</artifactId>
+		    <version>5.4.0.201906121030-r</version>
 		</dependency>
 	</dependencies>
 
