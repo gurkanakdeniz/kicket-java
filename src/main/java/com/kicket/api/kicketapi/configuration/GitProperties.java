@@ -27,15 +27,19 @@ public class GitProperties {
     @PostConstruct
     private void init() {
         try {
-            user = Optional.ofNullable(user).filter(s -> !s.isBlank()).orElseGet(() -> System.getenv("GIT_USER"));
-            pass = Optional.ofNullable(pass).filter(s -> !s.isBlank()).orElseGet(() -> System.getenv("GIT_PASS"));
-            remote = Optional.ofNullable(remote).filter(s -> !s.isBlank()).orElseGet(() -> System.getenv("GIT_REMOTE"));
-            branch = Optional.ofNullable(branch).filter(s -> !s.isBlank()).orElseGet(() -> System.getenv("GIT_BRANCH"));
-            directory = Optional.ofNullable(directory).filter(s -> !s.isBlank()).orElseGet(() -> System.getenv("GIT_DIRECTORY"));
-            active = Optional.ofNullable(active).filter(s -> !s.isBlank()).orElseGet(() -> System.getenv("GIT_ACTIVE"));
+            user = Optional.ofNullable(user).filter(s -> !isBlank(s)).orElseGet(() -> System.getenv("GIT_USER"));
+            pass = Optional.ofNullable(pass).filter(s -> !isBlank(s)).orElseGet(() -> System.getenv("GIT_PASS"));
+            remote = Optional.ofNullable(remote).filter(s -> !isBlank(s)).orElseGet(() -> System.getenv("GIT_REMOTE"));
+            branch = Optional.ofNullable(branch).filter(s -> !isBlank(s)).orElseGet(() -> System.getenv("GIT_BRANCH"));
+            directory = Optional.ofNullable(directory).filter(s -> !isBlank(s)).orElseGet(() -> System.getenv("GIT_DIRECTORY"));
+            active = Optional.ofNullable(active).filter(s -> !isBlank(s)).orElseGet(() -> System.getenv("GIT_ACTIVE"));
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    
+    private boolean isBlank(String value) {
+        return value == null || value.trim().length() <= 0;
     }
     
     public String getUser() {
