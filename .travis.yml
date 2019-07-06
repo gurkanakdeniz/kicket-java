@@ -1,0 +1,12 @@
+language: java
+
+install: skip
+sudo: required
+
+jdk:
+  - openjdk8
+
+cache:
+  directories:
+    - .autoconf
+    - $HOME/.m2
