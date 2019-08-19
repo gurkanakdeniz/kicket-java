@@ -6,16 +6,17 @@ public class ExampleResponse extends BaseResponse {
     private static String exampleRequest;
 
     static {
-        exampleCode = "public class External {\n" + 
-                "    \n" + 
-                "    public static String ex(Object[] args) {\n" + 
-                "        \n return \"\";" + 
-                "    }\n" + 
-                "    \n" + 
+        exampleCode = "/* You can define multiple method definition, just change <ex> keyword with your method name. */\n /* If you changed <default> keyword, you need to send your method name in request */\n/* ex. { method: <your method name> } */\n" +
+                "public class External {\n" +
+                "    \n" +
+                "    public static String ex(Object[] args) {\n" +
+                "        \n return \"\";" +
+                "    }\n" +
+                "    \n" +
                 "}";
-        exampleRequest = "{\n" + 
-                "    \"args\" : [\"4\", \"2\"],\n" + 
-                "    \"method\" : \"ex\"\n" + 
+        exampleRequest = "{\n" +
+                "    \"args\" : [\"4\", \"2\"],\n" +
+                "    \"method\" : \"ex\"\n" +
                 "}";
     }
 
